@@ -1,26 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
+import ProjectList from './components/projects/list';
+import Dashboard from './components/dashboard/index';
+import ProjectAdd from './components/projects/add';
+import ProjectShow from './components/projects/show';
+import ProjectEdit from './components/projects/edit';
+import UserList from './components/users/list';
+import UserAdd from './components/users/add';
+import UserShow from './components/users/show';
+import UserEdit from './components/users/edit';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <div>
+          <h2>Task Box</h2>
+          <ul>
+            <li>
+              {' '}
+              <Link to="/">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/projects">Projects</Link>
+            </li>
+            <li>
+              <Link to="/users">users</Link>
+            </li>
+          </ul>
+          <Switch>
+            <Route path="/" exact component={Dashboard} />
+            <Route path="/projects" exact component={ProjectList} />
+            <Route path="/projects/new" component={ProjectAdd} exact />
+            <Route path="/projects/:id" component={ProjectShow} exact />
+            <Route path="/projects/edit/:id" exact component={ProjectEdit} />
+            <Route path="/users" exact component={UserList} />
+            <Route path="/users/new" exact component={UserAdd} exact />
+            <Route path="/users/:id" component={UserShow} exact />
+            <Route path="/users/edit/:id" exact component={UserEdit} exact />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
